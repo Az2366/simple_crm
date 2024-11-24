@@ -2,17 +2,17 @@ package sg.edu.ntu.simple_crm;
 
 import java.util.UUID;
 
-public class Product {
+public class Product1 {
     private final String id;
     private String name;
     private String description;
     private double price;
 
-    public Product() {
+    public Product1() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Product(String name, String description, double price) {
+    public Product1(String name, String description, double price) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
