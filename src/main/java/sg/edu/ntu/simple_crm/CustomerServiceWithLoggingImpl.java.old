@@ -23,7 +23,7 @@ public class CustomerServiceWithLoggingImpl implements CustomerService {
         return customerRepository.createCustomer(customer);
     }
 
-    public Customer getCustomer(String id) {
+    public Customer getCustomer(Long id) {
         return customerRepository.getCustomer(getCustomerIndex(id));
     }
 
@@ -32,16 +32,16 @@ public class CustomerServiceWithLoggingImpl implements CustomerService {
         return customerRepository.getAllCustomers();
     }
 
-    public Customer updateCustomer(String id, Customer customer) {
+    public Customer updateCustomer(Long id, Customer customer) {
         return customerRepository.updateCustomer(getCustomerIndex(id), customer);
     }
 
-    public void deleteCustomer(String id) {
+    public void deleteCustomer(Long id) {
         customerRepository.deleteCustomer(getCustomerIndex(id));
     }
 
     // Helper
-    private int getCustomerIndex(String id) {
+    private int getCustomerIndex(Long id) {
         for (Customer customer : customerRepository.getAllCustomers()) {
             if (customer.getId().equals(id)) {
                 return customerRepository.getAllCustomers().indexOf(customer);
