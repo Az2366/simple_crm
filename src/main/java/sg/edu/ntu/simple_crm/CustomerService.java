@@ -1,18 +1,23 @@
 package sg.edu.ntu.simple_crm;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CustomerService {
-    Customer createCustomer(Customer customer);
+  Customer createCustomer(Customer customer);
 
-    Customer getCustomer(Long id);
+  Customer getCustomer(Long id);
 
-    ArrayList<Customer> getAllCustomers();
+  ArrayList<Customer> getAllCustomers();
 
-    Customer updateCustomer(Long id, Customer customer);
+  Customer updateCustomer(Long id, Customer customer);
 
-    void deleteCustomer(Long id);
+  void deleteCustomer(Long id);
 
-    Interaction addInteractionToCustomer(Long id, Interaction interaction);
+  Interaction addInteractionToCustomer(Long id, Interaction interaction);
+
+  List<Customer> getCustomersByFirstName(String firstName);
+
+  List<Customer> getCustomersWithNoInteraction();
 
 }

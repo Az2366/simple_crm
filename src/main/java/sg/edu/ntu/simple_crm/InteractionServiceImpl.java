@@ -1,7 +1,6 @@
 package sg.edu.ntu.simple_crm;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -15,26 +14,29 @@ public class InteractionServiceImpl implements InteractionService {
     }
 
     @Override
-    public Interaction createInteraction(Interaction interaction) {
+    public Interaction saveInteraction(Interaction interaction) {
         Interaction newInteraction = interactionRepository.save(interaction);
         return newInteraction;
     }
 
     @Override
     public Interaction getInteraction(Long id) {
-        Interaction foundCustomer = interactionRepository.findById(id).get();
-        return foundCustomer;
+        // Interaction interaction = interactionRepository.findById(id).get();
+        // return interaction;
+        return interactionRepository.findById(id).orElseThrow(() -> new InteractionNotFoundException(id));
     }
 
     @Override
-    public ArrayList<Interaction> getAllInteraction() {
-        ArrayList<Interaction> allInteraction = (ArrayList<Interaction>) interactionRepository.findAll();
-        return allInteraction;
+    public ArrayList<Interaction> getAllInteractions() {
+        ArrayList<Interaction> allInteractions = (ArrayList<Interaction>) interactionRepository.findAll();
+        return allInteractions;
     }
 
     @Override
     public Interaction updateInteraction(Long id, Interaction interaction) {
-        Interaction interactionToUpdate = interactionRepository.findById(id).get();
+        // Interaction interactionToUpdate = interactionRepository.findById(id).get();
+        Interaction interactionToUpdate = interactionRepository.findById(id)
+                .orElseThrow(() -> new InteractionNotFoundException(id));
         interactionToUpdate.setRemarks(interaction.getRemarks());
         interactionToUpdate.setInteractionDate(interaction.getInteractionDate());
         return interactionRepository.save(interactionToUpdate);
@@ -44,4 +46,5 @@ public class InteractionServiceImpl implements InteractionService {
     public void deleteInteraction(Long id) {
         interactionRepository.deleteById(id);
     }
+
 }

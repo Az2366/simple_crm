@@ -3,13 +3,14 @@ package sg.edu.ntu.simple_crm;
 import java.util.ArrayList;
 
 public interface InteractionService {
-    Interaction createInteraction(Interaction interaction);
+  Interaction saveInteraction(Interaction interaction);
 
-    Interaction getInteraction(Long id);
+  Interaction getInteraction(Long id);
 
-    public ArrayList<Interaction> getAllInteraction();
+  ArrayList<Interaction> getAllInteractions();
 
-    public Interaction updateInteraction(Long id, Interaction interaction);
+  Interaction updateInteraction(Long id, Interaction interaction);
 
-    public void deleteInteraction(Long id);
+  void deleteInteraction(Long id);
+
 }

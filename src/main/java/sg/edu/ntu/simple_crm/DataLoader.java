@@ -7,25 +7,22 @@ import jakarta.annotation.PostConstruct;
 @Component
 public class DataLoader {
     private CustomerRepository customerRepository;
-    // private InteractionRepository interactionRepository;
 
+    // @Autowired
     public DataLoader(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
-
-    // public DataLoader(InteractionRepository interactionRepository) {
-    // this.interactionRepository = interactionRepository;
-    // }
 
     @PostConstruct
     public void loadData() {
         customerRepository.deleteAll();
 
         // Load data
-        customerRepository.save(new Customer("AA", "BB"));
-        customerRepository.save(new Customer("CC", "DD"));
-        customerRepository.save(new Customer("EE", "FF"));
-        customerRepository.save(new Customer("GG", "HH"));
-        // interactionRepository.save("hi");
+        customerRepository.save(new Customer("Tony", "Stark"));
+        customerRepository.save(new Customer("Bruce", "Banner"));
+        customerRepository.save(new Customer("Peter", "Parker"));
+        customerRepository.save(new Customer("Stephen", "Strange"));
+
     }
+
 }
