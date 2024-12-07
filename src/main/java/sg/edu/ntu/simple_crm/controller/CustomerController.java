@@ -1,9 +1,7 @@
-package sg.edu.ntu.simple_crm;
+package sg.edu.ntu.simple_crm.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import sg.edu.ntu.simple_crm.service.CustomerService;
+import sg.edu.ntu.simple_crm.entity.Customer;
+import sg.edu.ntu.simple_crm.entity.Interaction;
 
 /*
  * Controller (Req/Res) <-> Service (Business Logic) <-> Repository (CRUD datastore)
@@ -42,15 +43,19 @@ public class CustomerController {
     // Create a customer
     @PostMapping("")
     public ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+
+        // if (bindingResult.hasErrors()) {
+        // System.out.println(bindingResult.getAllErrors());
+        // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        // }
         Customer newCustomer = customerService.createCustomer(customer);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
 
     // Read - get all customers
     @GetMapping("")
-    public ResponseEntity<ArrayList<Customer>> getAllCustomers() {
-        ArrayList<Customer> allCustomers = customerService.getAllCustomers();
-        return new ResponseEntity<>(allCustomers, HttpStatus.OK);
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
     // Read - get one customer
@@ -77,7 +82,7 @@ public class CustomerController {
     // Nested route
     @PostMapping("/{id}/interactions")
     public ResponseEntity<Interaction> addInteractionToCustomer(@PathVariable Long id,
-            @RequestBody Interaction interaction) {
+            @Valid @RequestBody Interaction interaction) {
         Interaction newInteraction = customerService.addInteractionToCustomer(id, interaction);
         return new ResponseEntity<>(newInteraction, HttpStatus.CREATED);
     }

@@ -1,20 +1,20 @@
 package sg.edu.ntu.simple_crm.assignment;
 
-public class Product {
+public class Product2 {
     private String id;
     private String name;
     private double price;
     private String desc;
 
-    public Product() {
+    public Product2() {
     }
 
-    public Product(String id, String name) {
+    public Product2(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Product(String id, String name, double price, String desc) {
+    public Product2(String id, String name, double price, String desc) {
         this.id = id;
         this.name = name;
         this.price = price;

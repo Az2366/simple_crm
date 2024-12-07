@@ -1,6 +1,5 @@
-package sg.edu.ntu.simple_crm;
+package sg.edu.ntu.simple_crm.exception;
 
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    // Add exception handlers here
 
     // @ExceptionHandler(CustomerNotFoundException.class)
     // public ResponseEntity<ErrorResponse>
@@ -31,30 +32,29 @@ public class GlobalExceptionHandler {
     // return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     // }
 
-    // All exceptions handled by the same method
-    @ExceptionHandler({ CustomerNotFoundException.class,
-            InteractionNotFoundException.class })
+    @ExceptionHandler({ CustomerNotFoundException.class, InteractionNotFoundException.class })
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(RuntimeException e) {
-        ErrorResponse errorResponse = new ErrorResponse(e.getMessage(),
-                LocalDateTime.now());
+        ErrorResponse errorResponse = new ErrorResponse(e.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     };
 
-    // Validation Exception Handler
+    // Validation exception handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException e) {
-        // Get a list of calidation errors
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException e) {
+        // Get a list of validation errors
         List<ObjectError> validationErrors = e.getBindingResult().getAllErrors();
 
-        // Create a StringBulider to store all messages
+        // Create a StringBuilder to store all messages
         StringBuilder sb = new StringBuilder();
 
         // Loop through all the errors and append the messages
         for (ObjectError error : validationErrors) {
-            sb.append(error.getDefaultMessage()).append(". ");
+            sb.append(error.getDefaultMessage() + ". ");
         }
 
+        // "Email should be valid. First name is mandatory. ",
         ErrorResponse errorResponse = new ErrorResponse(sb.toString(), LocalDateTime.now());
+
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -68,4 +68,5 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }

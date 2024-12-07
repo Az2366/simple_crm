@@ -14,34 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
-    private ArrayList<Product> products = new ArrayList<>();
+public class ProductController2 {
+    private ArrayList<Product2> products = new ArrayList<>();
 
-    public ProductController() {
+    public ProductController2() {
         // products.add(new Product("1", "Apple"));
         // products.add(new Product("2", "Banana"));
         // products.add(new Product("3", "Carrot"));
-        products.add(new Product("1", "Apple", 3, "From UK"));
-        products.add(new Product("2", "Banana", 2, "From Thailand"));
-        products.add(new Product("3", "Carrot", 1, "Local"));
+        products.add(new Product2("1", "Apple", 3, "From UK"));
+        products.add(new Product2("2", "Banana", 2, "From Thailand"));
+        products.add(new Product2("3", "Carrot", 1, "Local"));
     }
 
     // Add Product
     @PostMapping("")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product2> createProduct(@RequestBody Product2 product) {
         products.add(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     // Get All Product
     @GetMapping("")
-    public ResponseEntity<ArrayList<Product>> getAllProducts() {
+    public ResponseEntity<ArrayList<Product2>> getAllProducts() {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // Get one product
     @GetMapping("{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable String id) {
+    public ResponseEntity<Product2> getProduct(@PathVariable String id) {
         try {
             int index = getProductIndex(id);
             return new ResponseEntity<>(products.get(index), (HttpStatus.OK));
@@ -52,7 +52,7 @@ public class ProductController {
 
     // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable String id) {
+    public ResponseEntity<Product2> deleteProduct(@PathVariable String id) {
         try {
             int index = getProductIndex(id);
             products.remove(index);
@@ -64,7 +64,7 @@ public class ProductController {
 
     // Helper
     private int getProductIndex(String id) {
-        for (Product product : products) {
+        for (Product2 product : products) {
             if (product.getId().equals(id)) {
                 return products.indexOf(product);
             }

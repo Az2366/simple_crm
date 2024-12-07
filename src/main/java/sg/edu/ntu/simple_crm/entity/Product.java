@@ -1,18 +1,18 @@
-package sg.edu.ntu.simple_crm;
+package sg.edu.ntu.simple_crm.entity;
 
 import java.util.UUID;
 
-public class Product1 {
+public class Product {
     private final String id;
     private String name;
     private String description;
     private double price;
 
-    public Product1() {
+    public Product() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Product1(String name, String description, double price) {
+    public Product(String name, String description, double price) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;

@@ -1,4 +1,4 @@
-package sg.edu.ntu.simple_crm;
+package sg.edu.ntu.simple_crm.controller;
 
 import java.util.ArrayList;
 
@@ -11,39 +11,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sg.edu.ntu.simple_crm.entity.Product;
+
 @RestController
 @RequestMapping("/products1")
-public class ProductController1 {
-    private ArrayList<Product1> products = new ArrayList<>();
+public class ProductController {
+    private ArrayList<Product> products = new ArrayList<>();
 
-    public ProductController1() {
-        products.add(new Product1("Monster Hunter World", "PC/PS4/PS5", 199));
-        products.add(new Product1("Monster Hunter Wild", "PC/PS4/PS5", 299));
+    public ProductController() {
+        products.add(new Product("Monster Hunter World", "PC/PS4/PS5", 199));
+        products.add(new Product("Monster Hunter Wild", "PC/PS4/PS5", 299));
     }
 
     // Add Product
     @PostMapping("")
-    public Product1 createProduct(@RequestBody Product1 product) {
+    public Product createProduct(@RequestBody Product product) {
         products.add(product);
         return product;
     }
 
     // Read - get all product
     @GetMapping("")
-    public ArrayList<Product1> getAllProducts() {
+    public ArrayList<Product> getAllProducts() {
         return products;
     }
 
     // Read - get one product
     @GetMapping("{id}")
-    public Product1 getProduct(@PathVariable String id) {
+    public Product getProduct(@PathVariable String id) {
         int index = getProductIndex(id);
         return products.get(index);
     }
 
     // Update
     @PutMapping("/{id}")
-    public Product1 updateProduct(@PathVariable String id, @RequestBody Product1 product) {
+    public Product updateProduct(@PathVariable String id, @RequestBody Product product) {
         int index = getProductIndex(id);
         products.set(index, product);
         return product;
@@ -51,14 +53,14 @@ public class ProductController1 {
 
     // Delete
     @DeleteMapping("/{id}")
-    public Product1 deleteProduct(@PathVariable String id) {
+    public Product deleteProduct(@PathVariable String id) {
         int index = getProductIndex(id);
         return products.remove(index);
     }
 
     // Helper
     private int getProductIndex(String id) {
-        for (Product1 product : products) {
+        for (Product product : products) {
             if (product.getId().equals(id)) {
                 return products.indexOf(product);
             }
